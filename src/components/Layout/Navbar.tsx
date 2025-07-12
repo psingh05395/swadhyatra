@@ -296,79 +296,81 @@ const Navbar: React.FC = () => {
             />
           </Box>
 
-          {/* Cart Icon */}
-          <IconButton
-            color="inherit"
-            onClick={() => navigate("/cart")}
-            sx={{ mr: 1 }}
-          >
-            <Badge badgeContent={cartItemsCount} color="primary">
-              <ShoppingCart />
-            </Badge>
-          </IconButton>
-
-          {/* Profile Menu */}
-          {isAuthenticated ? (
-            <>
-              <IconButton
-                size="large"
-                edge="end"
-                aria-label="account of current user"
-                aria-controls="primary-search-account-menu"
-                aria-haspopup="true"
-                onClick={handleProfileMenuOpen}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-              <Menu
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorEl)}
-                onClose={handleMenuClose}
-              >
-                <MenuItem
-                  onClick={() => {
-                    navigate("/profile");
-                    handleMenuClose();
-                  }}
-                >
-                  Profile
-                </MenuItem>
-                <MenuItem
-                  onClick={() => {
-                    navigate("/orders");
-                    handleMenuClose();
-                  }}
-                >
-                  My Orders
-                </MenuItem>
-                <MenuItem onClick={handleLogout}>Logout</MenuItem>
-              </Menu>
-            </>
-          ) : (
-            <Button
-              color="primary"
-              variant="outlined"
-              onClick={() => navigate("/login")}
-              size="small"
-              sx={{
-                ml: 2,
-                display: { xs: "none", sm: "block" },
-                padding: "4px 12px",
-              }}
+          <Box>
+            {/* Cart Icon */}
+            <IconButton
+              color="inherit"
+              onClick={() => navigate("/cart")}
+              sx={{ mr: 1 }}
             >
-              Login
-            </Button>
-          )}
+              <Badge badgeContent={cartItemsCount} color="primary">
+                <ShoppingCart />
+              </Badge>
+            </IconButton>
+
+            {/* Profile Menu */}
+            {isAuthenticated ? (
+              <>
+                <IconButton
+                  size="large"
+                  edge="end"
+                  aria-label="account of current user"
+                  aria-controls="primary-search-account-menu"
+                  aria-haspopup="true"
+                  onClick={handleProfileMenuOpen}
+                  color="inherit"
+                >
+                  <AccountCircle />
+                </IconButton>
+                <Menu
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorEl)}
+                  onClose={handleMenuClose}
+                >
+                  <MenuItem
+                    onClick={() => {
+                      navigate("/profile");
+                      handleMenuClose();
+                    }}
+                  >
+                    Profile
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      navigate("/orders");
+                      handleMenuClose();
+                    }}
+                  >
+                    My Orders
+                  </MenuItem>
+                  <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                </Menu>
+              </>
+            ) : (
+              <Button
+                color="primary"
+                variant="outlined"
+                onClick={() => navigate("/login")}
+                size="small"
+                sx={{
+                  ml: 2,
+                  display: { xs: "none", sm: "block" },
+                  padding: "4px 12px",
+                }}
+              >
+                Login
+              </Button>
+            )}
+          </Box>
         </Toolbar>
       </AppBar>
 

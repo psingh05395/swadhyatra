@@ -14,6 +14,8 @@ import {
   DeliveryDining,
   Star,
   LocalOffer,
+  ArrowCircleLeft,
+  ArrowCircleRight,
 } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
@@ -26,6 +28,47 @@ import Slider from "react-slick";
 import { useNavigate } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Thekua from "./../assets/Thekua.png";
+
+const NextArrow = (props: any) => {
+  const { onClick } = props;
+  return (
+    <Box
+      onClick={onClick}
+      sx={{
+        padding: 0,
+        borderRadius: "4px",
+        position: "absolute",
+        bottom: -20,
+        right: 10,
+        zIndex: 2,
+        cursor: "pointer",
+      }}
+    >
+      <ArrowCircleRight sx={{ fontSize: 35, color: "primary.main" }} />
+    </Box>
+  );
+};
+
+const PrevArrow = (props: any) => {
+  const { onClick } = props;
+  return (
+    <Box
+      onClick={onClick}
+      sx={{
+        padding: 0,
+        borderRadius: "4px",
+        position: "absolute",
+        bottom: -20,
+        right: 55,
+        zIndex: 2,
+        cursor: "pointer",
+      }}
+    >
+      <ArrowCircleLeft sx={{ fontSize: 35, color: "primary.main" }} />
+    </Box>
+  );
+};
 
 const Home: React.FC = () => {
   const theme = useTheme();
@@ -55,6 +98,9 @@ const Home: React.FC = () => {
     slidesToScroll: 1,
     autoplay: false,
     autoplaySpeed: 3000,
+    pauseOnHover: isMobile ? false : true,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
     responsive: [
       {
         breakpoint: 960,
@@ -66,6 +112,7 @@ const Home: React.FC = () => {
         breakpoint: 600,
         settings: {
           slidesToShow: 1,
+          arrows: false,
         },
       },
     ],
@@ -73,7 +120,7 @@ const Home: React.FC = () => {
 
   const categorySliderSettings = {
     ...sliderSettings,
-    slidesToShow: isMobile ? 2 : 4,
+    slidesToShow: isMobile ? 1 : 4,
     responsive: [
       {
         breakpoint: 960,
@@ -84,7 +131,8 @@ const Home: React.FC = () => {
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 1,
+          arrows: false,
         },
       },
     ],
@@ -167,13 +215,19 @@ const Home: React.FC = () => {
                 </Button>
               </Box>
             </Grid>
-            <Grid size={{ xs: 12, md: 6 }}>
+            <Grid
+              size={{ xs: 12, md: 6 }}
+              sx={{
+                justifyContent: { xs: "center", md: "end" },
+                display: "flex",
+              }}
+            >
               <Box
                 component="img"
-                src="https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg"
+                src={Thekua}
                 alt="Delicious Indian Food"
                 sx={{
-                  width: "100%",
+                  width: "75%",
                   height: "auto",
                   borderRadius: 2,
                   boxShadow: 3,
@@ -197,7 +251,7 @@ const Home: React.FC = () => {
             Explore Our Categories
           </Typography>
 
-          <Box sx={{ "& .slick-dots": { bottom: -50 } }}>
+          <Box sx={{ position: "relative", "& .slick-dots": { bottom: -50 } }}>
             <Slider {...categorySliderSettings}>
               {allCategories.map((category) => (
                 <Box key={category.id} sx={{ py: 4, px: 1 }}>
@@ -222,7 +276,7 @@ const Home: React.FC = () => {
             Special Offers
           </Typography>
 
-          <Box sx={{ "& .slick-dots": { bottom: -50 } }}>
+          <Box sx={{ position: "relative", "& .slick-dots": { bottom: -50 } }}>
             <Slider {...sliderSettings}>
               {featuredFoods.map((food) => (
                 <Box key={food.id} sx={{ py: 4, px: 1 }}>
@@ -247,7 +301,7 @@ const Home: React.FC = () => {
             Most Popular
           </Typography>
 
-          <Box sx={{ "& .slick-dots": { bottom: -50 } }}>
+          <Box sx={{ position: "relative", "& .slick-dots": { bottom: -50 } }}>
             <Slider {...sliderSettings}>
               {popularFoods.map((food) => (
                 <Box key={food.id} sx={{ py: 4, px: 1 }}>
@@ -340,7 +394,7 @@ const Home: React.FC = () => {
           What Our Customers Say
         </Typography>
 
-        <Box sx={{ "& .slick-dots": { bottom: -50 } }}>
+        <Box sx={{ position: "relative", "& .slick-dots": { bottom: -50 } }}>
           <Slider {...sliderSettings}>
             {testimonials.map((testimonial) => (
               <Box key={testimonial.id} sx={{ py: 4, px: 1 }}>
