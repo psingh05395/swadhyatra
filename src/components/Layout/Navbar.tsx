@@ -8,8 +8,6 @@ import {
   Menu,
   MenuItem,
   Box,
-  InputBase,
-  alpha,
   useTheme,
   useMediaQuery,
   Drawer,
@@ -18,6 +16,9 @@ import {
   ListItemIcon,
   ListItemText,
   CardMedia,
+  Avatar,
+  alpha,
+  InputBase,
 } from "@mui/material";
 import {
   Search as SearchIcon,
@@ -37,6 +38,7 @@ import { logout } from "../../store/slices/authSlice";
 import { setSearchQuery } from "../../store/slices/foodSlice";
 import { useNavigate, useLocation } from "react-router-dom";
 import SwadhYatraLogo from "../../assets/SwadhYatra-logo.png";
+import { getInitials } from "../../utils/helpers";
 
 const Navbar: React.FC = () => {
   const theme = useTheme();
@@ -252,7 +254,7 @@ const Navbar: React.FC = () => {
           )}
 
           {/* Search Bar */}
-          <Box
+          {/* <Box
             sx={{
               position: "relative",
               borderRadius: 1,
@@ -294,9 +296,9 @@ const Navbar: React.FC = () => {
                 },
               }}
             />
-          </Box>
+          </Box> */}
 
-          <Box>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
             {/* Cart Icon */}
             <IconButton
               color="inherit"
@@ -319,9 +321,22 @@ const Navbar: React.FC = () => {
                   aria-haspopup="true"
                   onClick={handleProfileMenuOpen}
                   color="inherit"
+                  sx={{ p: 0 }}
                 >
-                  <AccountCircle />
+                  <Avatar
+                    sx={{
+                      width: 40,
+                      height: 40,
+                      bgcolor: "primary.main",
+                      fontSize: "16px",
+                      fontWeight: "600",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    {getInitials(user?.name)}
+                  </Avatar>
                 </IconButton>
+
                 <Menu
                   anchorEl={anchorEl}
                   anchorOrigin={{

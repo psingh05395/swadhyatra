@@ -1,3 +1,49 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Slick dots container */
+.slick-dots {
+  bottom: -20px !important;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+  list-style: none;
+}
+
+/* Each dot wrapper */
+.slick-dots li {
+  margin: 0px;
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* Remove default button styles */
+.slick-dots li button {
+  font-size: 0;
+  width: 8px;
+  height: 8px;
+  background-color: #fcae91; /* Inactive dot color */
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Remove Slick's default pseudo element (which causes issues) */
+.slick-dots li button::before {
+  display: none;
+}
+
+/* Active dot */
+.slick-dots li.slick-active button {
+  width: 11px;
+  height: 11px;
+  background-color: #ff6b35; /* Active color */
+  transform: scale(1.1);
+}

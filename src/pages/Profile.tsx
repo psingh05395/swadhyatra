@@ -16,6 +16,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../store/store";
 import { updateProfile } from "../store/slices/authSlice";
 import { useNavigate } from "react-router-dom";
+import { getInitials } from "../utils/helpers";
 
 const Profile: React.FC = () => {
   const dispatch = useDispatch();
@@ -76,19 +77,33 @@ const Profile: React.FC = () => {
 
       <Paper sx={{ p: 4 }}>
         {/* Profile Header */}
-        <Box sx={{ display: "flex", alignItems: "center", mb: 4 }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", sm: "row" },
+            alignItems: { xs: "center", sm: "center" },
+            mb: 4,
+          }}
+        >
           <Avatar
             sx={{
               width: 100,
               height: 100,
-              mr: 3,
+              mr: { xs: 0, sm: 3 },
+              mb: { xs: 2, sm: 0 },
               bgcolor: "primary.main",
               fontSize: "2rem",
             }}
           >
-            {user.name.charAt(0).toUpperCase()}
+            {getInitials(user?.name)}
           </Avatar>
-          <Box sx={{ flex: 1 }}>
+
+          <Box
+            sx={{
+              flex: 1,
+              textAlign: { xs: "center", sm: "left" },
+            }}
+          >
             <Typography variant="h4" gutterBottom>
               {user.name}
             </Typography>
@@ -96,6 +111,23 @@ const Profile: React.FC = () => {
               Member since {new Date().getFullYear()}
             </Typography>
           </Box>
+
+          {/* Edit button only for desktop */}
+          <Box sx={{ display: { xs: "none", sm: "block" } }}>
+            <Button
+              variant={isEditing ? "outlined" : "contained"}
+              startIcon={isEditing ? <Cancel /> : <Edit />}
+              onClick={isEditing ? handleCancel : () => setIsEditing(true)}
+            >
+              {isEditing ? "Cancel" : "Edit Profile"}
+            </Button>
+          </Box>
+        </Box>
+
+        {/* Edit button for mobile at the bottom */}
+        <Box
+          sx={{ display: { xs: "flex", sm: "none" }, justifyContent: "center" }}
+        >
           <Button
             variant={isEditing ? "outlined" : "contained"}
             startIcon={isEditing ? <Cancel /> : <Edit />}
@@ -105,7 +137,7 @@ const Profile: React.FC = () => {
           </Button>
         </Box>
 
-        <Divider sx={{ mb: 4 }} />
+        <Divider sx={{ my: 4 }} />
 
         {/* Profile Form */}
         <Grid container spacing={3}>
